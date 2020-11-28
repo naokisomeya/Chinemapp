@@ -1,0 +1,52 @@
+
+
+<div class="row">
+ <h3 class="center-align"><%= link_to @chinema.name, @chinema.url %></h3>
+  <div id="chinema_image" class="col l6 s12 left">
+    <% if chinema.chinema_image%>
+      <%= image_tag @chinema.chinema_image.url %>
+      <%else%>
+      <%= image_tag 'no_image.png'%>
+      <% end %>
+    </div>
+
+    <div id="chinema_info" class="col l6 s12 right" id="card_option">
+    <h6 class="center-align"><%= shop.address %></h6><br/>
+      
+
+
+<div class="row">
+  <div class="col s12 m7">
+  <div class="card sticky-action">
+    <div class="card-image waves-effect waves-block waves-light">
+        <div id="map"></div>
+
+        
+
+        <script>
+$(window).on('load', function() {
+    $('#shop_info .material-icons').removeClass('small');
+		$('#shop_info .material-icons').addClass('medium');
+});
+</script>
+<script>
+	function initMap() {
+	var latlng = new google.maps.LatLng(<%= @chinema.latitude %>,<%= @chinema.longitude %>);
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 16,
+		center: latlng
+	});
+
+	var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title: "<%= @shop.name %>"
+		});
+	}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkI_thGt1jmgpsYsGf_Yl4WazAuv95TTs&callback=initMap" async defer></script>
+        
+        
+
+

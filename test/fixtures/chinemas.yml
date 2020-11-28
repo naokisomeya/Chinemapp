@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  chinema_name: MyString
+  chinema_body: MyText
+  address: MyString
+  url: MyString
+  chinema_image: MyString
+  float: 
+  float: 
+
+two:
+  user: two
+  chinema_name: MyString
+  chinema_body: MyText
+  address: MyString
+  url: MyString
+  chinema_image: MyString
+  float: 
+  float: 
