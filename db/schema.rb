@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_223621) do
+ActiveRecord::Schema.define(version: 2020_12_24_215436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chinema_likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "chinema_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chinema_id"], name: "index_chinema_likes_on_chinema_id"
+    t.index ["user_id"], name: "index_chinema_likes_on_user_id"
+  end
 
   create_table "chinemas", force: :cascade do |t|
     t.bigint "user_id"
@@ -27,6 +36,44 @@ ActiveRecord::Schema.define(version: 2020_11_16_223621) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_chinemas_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id"
+    t.bigint "chinema_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chinema_id"], name: "index_comments_on_chinema_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_favorites_on_movie_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "chinema_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chinema_id"], name: "index_likes_on_chinema_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "movie_comments", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id"
+    t.bigint "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_comments_on_movie_id"
+    t.index ["user_id"], name: "index_movie_comments_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -68,6 +115,16 @@ ActiveRecord::Schema.define(version: 2020_11_16_223621) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "chinema_likes", "chinemas"
+  add_foreign_key "chinema_likes", "users"
   add_foreign_key "chinemas", "users"
+  add_foreign_key "comments", "chinemas"
+  add_foreign_key "comments", "users"
+  add_foreign_key "favorites", "movies"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "likes", "chinemas"
+  add_foreign_key "likes", "users"
+  add_foreign_key "movie_comments", "movies"
+  add_foreign_key "movie_comments", "users"
   add_foreign_key "movies", "users"
 end

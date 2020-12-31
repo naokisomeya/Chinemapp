@@ -1,4 +1,5 @@
 class ChinemasController < ApplicationController
+  
 
   def new
     @chinema = Chinema.new
@@ -20,6 +21,8 @@ class ChinemasController < ApplicationController
 
   def show
     @chinema = Chinema.find(params[:id])
+    @like = Like.new
+    @comment = Comment.new
   end
 
   def edit
@@ -31,20 +34,18 @@ class ChinemasController < ApplicationController
     if @chinema.update!(chinema_params)
       redirect_to chinema_path(@chinema), notice: "投稿を更新しました"
     else
-
-    render :edit
+      render :edit
     end
   end
 
   def destroy
     chinema = Chinema.find(params[:id])
-    @chinema.destroy
+    chinema.destroy
     redirect_to chinema_path(chinema.user), notice: "投稿を削除しました"
   end
 
 
   private
-
   def chinema_params
     params.require(:chinema).permit(:chinema_name, :chinema_body, :chinema_image, :url, :address )
   end

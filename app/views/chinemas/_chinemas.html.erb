@@ -1,0 +1,24 @@
+
+<% @chinemas.each do |chinema|%>
+<div class="row">
+  <div id="chinema_image" class="col s12 m7">
+   <div class="card">
+    <div class="card-image">
+    <% if @chinema.chinema_image%>
+      <%= image_tag @chinema.chinema_image.url %>
+      <%else%>
+      <%= image_tag 'no_image.png'%>
+      <% end %>
+      </div>
+      </div>
+        <div class="card-chinema-info">
+        <%= link_to chinema_path(chinema) do %>
+        <%= @chinema.chinema_name %>  
+        <% end %>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -20,6 +20,31 @@
     <div class="card-reveal">
       <span class="card-title grey-text text-darken-4"><%= @movie.movie_name %><i class="material-icons right">close</i></span>
       <p><%= simple_format @movie.movie_body %></p>
+      <h3>いいね件数: <%= @movie.favorites.count %></h3>
+<% if current_user.already_favorited?(@movie) %>
+  <%= button_to 'いいねを取り消す', movie_favorite_path(@movie), method: :delete %>
+<% else %>
+  <%= button_to 'いいね', movie_favorites_path(@movie) %>
+<% end %>
+<h2>いいねしたユーザー</h2>
+<% @movie.favorited_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<h2>コメント一覧</h2>
+<% @movie_comments.each do |movie_comment| %>
+<div>
+<a href="/users/<%= @movie.user.id %>"><%= m.user.email %></a>
+<%= m.content %>
+<hr>
+</div>
+<% end %>
+
+<%= form_for [@post, @movie_comment] do |f| %>
+  <%= f.text_field :content %>
+  <br>
+  <%= f.submit 'コメントする' %>
+<% end %>
     </div>
   </div>
 </div>

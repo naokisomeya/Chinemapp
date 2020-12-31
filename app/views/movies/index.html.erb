@@ -1,2 +1,26 @@
-<h1>Movies#index</h1>
-<p>Find me in app/views/movies/index.html.erb</p>
+<% @movies.each do |movie|%>
+ <div class="row">
+  <div id="chinema_image" class="col s12 m6 l3">
+    <div class="card medium">
+     <div class="card-image movie-image">
+      <div id="movies_image">
+       <% if movie.movie_image%>
+        <%= image_tag movie.movie_image.url %>
+       <%else%>
+        <%= image_tag 'no_image.png'%>
+     <% end %>
+    </div>
+  </div>
+  
+      <div class="card-movie-info">
+      <%= link_to movie_path(movie) do %>
+      <p class="movie-name"><%= movie.movie_name %></p>  
+      <% end %>
+      </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module ChinemaLikesHelper
+end
